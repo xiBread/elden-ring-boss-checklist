@@ -1,8 +1,11 @@
 ---
 import "../app.css";
-import { bosses } from "../data/bosses";
+import { bosses, type Boss } from "../data/bosses";
 
-const groups = Object.groupBy(bosses, (boss) => boss.location);
+const groups = bosses.reduce<Record<string, Boss[]>>((all, boss) => {
+	(all[boss.location] ??= []).push(boss);
+	return all;
+}, {});
 
 const attributes = [
 	{
