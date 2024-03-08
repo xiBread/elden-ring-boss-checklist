@@ -1,0 +1,143 @@
+---
+import "../app.css";
+import { bosses } from "../data/bosses";
+
+const groups = Object.groupBy(bosses, (boss) => boss.location);
+
+const attributes = [
+	{
+		key: "legend",
+		color: "bg-amber-400 dark:bg-amber-600",
+		tooltip: "This boss is a Legend / Demigod",
+	},
+	{
+		key: "achievement",
+		color: "bg-blue-400 dark:bg-sky-600",
+		tooltip: "This boss gives an achievement",
+	},
+] as const;
+---
+
+<html
+	lang="en"
+	x-data="{ theme: localStorage.getItem('theme') || localStorage.setItem('theme', 'auto')}"
+	x-init="$watch('theme', (val) => localStorage.setItem('theme', val))"
+	x-bind:class="{ 'dark': theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) }"
+>
+	<head>
+		<meta charset="utf-8" />
+
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<link rel="preconnect" href="https://rsms.me/inter" />
+		<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
+		<title>Elden Ring Boss Checklist</title>
+	</head>
+
+	<body
+		class="max-w-[88rem] mx-auto bg-background antialiased px-4 sm:px-6"
+		x-data="{ checked: JSON.parse(localStorage.getItem('checked')) ?? [], count: 0 }"
+		x-init="() => { count = checked.length; $watch('checked', (val) => count = val.length) }"
+	>
+		<h1 class="py-10 text-center text-3xl">
+			<span id="progress" class="font-bold" x-text="count"></span>
+			<span class="text-muted-foreground font-semibold">/ 165</span>
+		</h1>
+
+		<div class="absolute top-4 right-4">
+			<button
+				class="inline-flex items-center justify-center rounded-md focus-visible:outline-none focus-visible:border-blue-500 size-10 border border-input bg-background hover:bg-accent"
+				x-on:click="theme = theme === 'light' ? 'dark' : 'light'"
+			>
+				<!-- Moon -->
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="24"
+					height="24"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="size-4"
+					x-bind:class="theme === 'light' ? 'hidden' : 'block'"
+				>
+					<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+				</svg>
+
+				<!-- Sun -->
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="24"
+					height="24"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="size-4"
+					x-bind:class="theme === 'light' ? 'block' : 'hidden'"
+				>
+					<circle cx="12" cy="12" r="4"></circle>
+					<path d="M12 2v2"></path>
+					<path d="M12 20v2"></path>
+					<path d="m4.93 4.93 1.41 1.41"></path>
+					<path d="m17.66 17.66 1.41 1.41"></path>
+					<path d="M2 12h2"></path>
+					<path d="M20 12h2"></path>
+					<path d="m6.34 17.66-1.41 1.41"></path>
+					<path d="m19.07 4.93-1.41 1.41"></path>
+				</svg>
+			</button>
+		</div>
+
+		<main class="sm:columns-2 columns-1 xl:columns-3 lg:gap-x-8 pb-20">
+			{
+				Object.entries(groups).map(([location, bosses]) => (
+					<ul class="space-y-2 break-inside-avoid-column">
+						<li class="w-full flex border-b rounded-b-none pb-0.5">
+							<h2 class="text-2xl font-bold">{location}</h2>
+						</li>
+
+						<ul class="overflow-hidden space-y-1.5">
+							{bosses.map((boss) => (
+								<li class="flex gap-x-2 items-center last:pb-6">
+									<input
+										type="checkbox"
+										class="size-4 appearance-none hover:cursor-pointer bg-none rounded-sm border border-primary focus-visible:outline-none focus-visible:border-blue-400 focus-visible:border-2 checked:bg-primary checked:text-primary-foreground"
+										value={`${boss.location}_${boss.name}`}
+										x-bind:checked="checked.includes($el.value)"
+										x-on:change="() => { checked = checked.includes($el.value) ? checked.filter((name) => name !== $el.value) : [...checked, $el.value]; localStorage.setItem('checked', JSON.stringify(checked)) }"
+									/>
+
+									<div class="flex items-center gap-x-2 ml-1">
+										<span class="text-sm">{boss.name}</span>
+
+										{attributes.map(
+											(attr) =>
+												boss[attr.key] && (
+													<span
+														title={attr.tooltip}
+														class:list={[
+															"block rounded-full size-2.5",
+															attr.color,
+														]}
+													/>
+												),
+										)}
+									</div>
+								</li>
+							))}
+						</ul>
+					</ul>
+				))
+			}
+		</main>
+	</body>
+</html>

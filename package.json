@@ -1,0 +1,37 @@
+{
+	"name": "er-boss-checklist",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro check && astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"prettier": {
+		"printWidth": 100,
+		"tabWidth": 4,
+		"useTabs": true,
+		"overrides": [
+			{
+				"files": [
+					"bosses.ts"
+				],
+				"options": {
+					"printWidth": 140
+				}
+			}
+		]
+	},
+	"dependencies": {
+		"@astrojs/alpinejs": "^0.4.0",
+		"@astrojs/check": "^0.5.6",
+		"@astrojs/tailwind": "^5.1.0",
+		"@types/alpinejs": "^3.13.6",
+		"alpinejs": "^3.13.6",
+		"astro": "^4.4.15",
+		"tailwindcss": "^3.4.1",
+		"typescript": "^5.4.2"
+	}
+}
