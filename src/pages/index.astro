@@ -2,8 +2,22 @@
 import "../app.css";
 import { bosses, type Boss } from "../data/bosses";
 
+/**
+ * share functionality:
+ *
+ * url param: https://...?id={whatever}
+ *
+ * table layout:
+ * | id  | checked |
+ * | ... | ["..."] |
+ *
+ * update checked as normal
+ * readonly on `id` param presence
+ * share button
+ */
+
 const groups = bosses.reduce<Record<string, Boss[]>>((all, boss) => {
-	(all[boss.location] ??= []).push(boss);
+	(all[boss.region] ??= []).push(boss);
 	return all;
 }, {});
 
@@ -43,8 +57,15 @@ const attributes = [
 
 	<body
 		class="max-w-[88rem] mx-auto bg-background antialiased px-4 sm:px-6"
-		x-data="{ checked: JSON.parse(localStorage.getItem('checked')) ?? [], count: 0 }"
-		x-init="() => { count = checked.length; $watch('checked', (val) => count = val.length) }"
+		x-data="checklist"
+		x-init={`
+			count = checked.length;
+
+			$watch('checked', (val) => {
+				count = val.length;
+				if (count === 165) confetti.addConfetti();
+			})
+		`}
 	>
 		<h1 class="py-10 text-center text-3xl">
 			<span id="progress" class="font-bold" x-text="count"></span>
@@ -114,9 +135,15 @@ const attributes = [
 									<input
 										type="checkbox"
 										class="size-4 appearance-none hover:cursor-pointer bg-none rounded-sm border border-primary focus-visible:outline-none focus-visible:border-blue-400 focus-visible:border-2 checked:bg-primary checked:text-primary-foreground"
-										value={`${boss.location}_${boss.name}`}
+										value={`${boss.region}_${boss.name}`}
 										x-bind:checked="checked.includes($el.value)"
-										x-on:change="() => { checked = checked.includes($el.value) ? checked.filter((name) => name !== $el.value) : [...checked, $el.value]; localStorage.setItem('checked', JSON.stringify(checked)) }"
+										x-on:change={`
+											checked = checked.includes($el.value)
+												? checked.filter((name) => name !== $el.value)
+												: [...checked, $el.value]
+
+											localStorage.setItem('checked', JSON.stringify(checked))
+										`}
 									/>
 
 									<div class="flex items-center gap-x-2 ml-1">
@@ -143,4 +170,16 @@ const attributes = [
 			}
 		</main>
 	</body>
+
+	<script>
+		import JSConfetti from "js-confetti";
+
+		addEventListener("alpine:init", () => {
+			Alpine.data("checklist", () => ({
+				checked: JSON.parse(localStorage.getItem("checked") ?? "") ?? [],
+				count: 0,
+				confetti: new JSConfetti(),
+			}));
+		});
+	</script>
 </html>
