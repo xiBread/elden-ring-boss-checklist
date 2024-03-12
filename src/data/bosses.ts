@@ -9,7 +9,7 @@ type BossLocation =
 	| "Nokron, Eternal City"
 	| "Deeproot Depths"
 	| "Lake of Rot"
-	| "Atlus Plateu"
+	| "Altus Plateu"
 	| "Mt. Gelmir"
 	| "Leyndell"
 	| "Forbidden Lands"
@@ -149,25 +149,25 @@ export const bosses: Boss[] = [
 	{ name: "Astel, Naturalborn of the Void", region: "Deeproot Depths", achievement: true },
 	{ name: "Dragonkin Soldier", region: "Deeproot Depths" },
 
-	// #region Atlus
-	{ name: "Ancient Dragon Lansseax", region: "Atlus Plateu" },
-	{ name: "Ancient Hero of Zamor", region: "Atlus Plateu" },
-	{ name: "Black Knife Assassin (Sage's Cave)", region: "Atlus Plateu" },
-	{ name: "Black Knife Assassin (Sainted Hero's Grave)", region: "Atlus Plateu" },
-	{ name: "Crystalian Spear & Crystalian Ringblade", region: "Atlus Plateu" },
-	{ name: "Demi-Human Queen Gilika", region: "Atlus Plateu" },
-	{ name: "Elemer of the Briar", region: "Atlus Plateu", achievement: true },
-	{ name: "Fallingstar Beast", region: "Atlus Plateu" },
-	{ name: "Godefroy The Grafted", region: "Atlus Plateu" },
-	{ name: "Godskin Apostle", region: "Atlus Plateu" },
-	{ name: "Necromancer Garris", region: "Atlus Plateu" },
-	{ name: "Night's Cavalry", region: "Atlus Plateu" },
-	{ name: "Omenkiller / Miranda", region: "Atlus Plateu" },
-	{ name: "Perfumer Tricia / Misbegotten Warrior", region: "Atlus Plateu" },
-	{ name: "Sanguine Noble", region: "Atlus Plateu" },
-	{ name: "Stonedigger Troll", region: "Atlus Plateu" },
-	{ name: "Tree Sentinel Duo", region: "Atlus Plateu" },
-	{ name: "Wormface", region: "Atlus Plateu" },
+	// #region Altus
+	{ name: "Ancient Dragon Lansseax", region: "Altus Plateu" },
+	{ name: "Ancient Hero of Zamor", region: "Altus Plateu" },
+	{ name: "Black Knife Assassin (Sage's Cave)", region: "Altus Plateu" },
+	{ name: "Black Knife Assassin (Sainted Hero's Grave)", region: "Altus Plateu" },
+	{ name: "Crystalian Spear & Crystalian Ringblade", region: "Altus Plateu" },
+	{ name: "Demi-Human Queen Gilika", region: "Altus Plateu" },
+	{ name: "Elemer of the Briar", region: "Altus Plateu", achievement: true },
+	{ name: "Fallingstar Beast", region: "Altus Plateu" },
+	{ name: "Godefroy The Grafted", region: "Altus Plateu" },
+	{ name: "Godskin Apostle", region: "Altus Plateu" },
+	{ name: "Necromancer Garris", region: "Altus Plateu" },
+	{ name: "Night's Cavalry", region: "Altus Plateu" },
+	{ name: "Omenkiller / Miranda", region: "Altus Plateu" },
+	{ name: "Perfumer Tricia / Misbegotten Warrior", region: "Altus Plateu" },
+	{ name: "Sanguine Noble", region: "Altus Plateu" },
+	{ name: "Stonedigger Troll", region: "Altus Plateu" },
+	{ name: "Tree Sentinel Duo", region: "Altus Plateu" },
+	{ name: "Wormface", region: "Altus Plateu" },
 	// #endregion
 
 	// #region Mt. Gelmir
