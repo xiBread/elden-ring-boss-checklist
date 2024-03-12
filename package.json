@@ -1,7 +1,6 @@
 {
-	"name": "er-boss-checklist",
+	"name": "elden-ring-boss-checklist",
 	"type": "module",
-	"version": "0.0.1",
 	"scripts": {
 		"dev": "astro dev",
 		"start": "astro dev",
