@@ -176,7 +176,7 @@ const attributes = [
 
 		addEventListener("alpine:init", () => {
 			Alpine.data("checklist", () => ({
-				checked: JSON.parse(localStorage.getItem("checked") ?? "") ?? [],
+				checked: JSON.parse(localStorage.getItem("checked") ?? "null") ?? [],
 				count: 0,
 				confetti: new JSConfetti(),
 			}));
