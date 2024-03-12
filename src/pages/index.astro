@@ -2,20 +2,6 @@
 import "../app.css";
 import { bosses, type Boss } from "../data/bosses";
 
-/**
- * share functionality:
- *
- * url param: https://...?id={whatever}
- *
- * table layout:
- * | id  | checked |
- * | ... | ["..."] |
- *
- * update checked as normal
- * readonly on `id` param presence
- * share button
- */
-
 const groups = bosses.reduce<Record<string, Boss[]>>((all, boss) => {
 	(all[boss.region] ??= []).push(boss);
 	return all;
