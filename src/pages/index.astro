@@ -63,6 +63,8 @@ const attributes = [
 
 			$watch('checked', (val) => {
 				count = val.length;
+				localStorage.setItem('checked', JSON.stringify(val));
+
 				if (count === 165) confetti.addConfetti();
 			})
 		`}
@@ -72,53 +74,78 @@ const attributes = [
 			<span class="text-muted-foreground font-semibold">/ 165</span>
 		</h1>
 
-		<div class="absolute top-4 right-4">
-			<button
-				class="inline-flex items-center justify-center rounded-md focus-visible:outline-none focus-visible:border-blue-500 size-10 border border-input bg-background hover:bg-accent"
-				x-on:click="theme = theme === 'light' ? 'dark' : 'light'"
+		<div class="absolute top-4 right-4" role="toolbar">
+			<div
+				class="flex items-center rounded-md overflow-hidden border border-input divide-x divide-input"
 			>
-				<!-- Moon -->
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="24"
-					height="24"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					class="size-4"
-					x-bind:class="theme === 'light' ? 'hidden' : 'block'"
+				<button
+					class="inline-flex items-center justify-center focus-visible:outline-none focus-visible:border-blue-500 size-10 bg-background hover:bg-accent"
+					x-on:click="checked = []"
 				>
-					<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-				</svg>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="size-4"
+					>
+						<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+						<path d="M3 3v5h5"></path>
+					</svg>
+				</button>
 
-				<!-- Sun -->
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="24"
-					height="24"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					class="size-4"
-					x-bind:class="theme === 'light' ? 'block' : 'hidden'"
+				<button
+					class="inline-flex items-center justify-center focus-visible:outline-none focus-visible:border-blue-500 size-10 bg-background hover:bg-accent"
+					x-on:click="theme = theme === 'light' ? 'dark' : 'light'"
 				>
-					<circle cx="12" cy="12" r="4"></circle>
-					<path d="M12 2v2"></path>
-					<path d="M12 20v2"></path>
-					<path d="m4.93 4.93 1.41 1.41"></path>
-					<path d="m17.66 17.66 1.41 1.41"></path>
-					<path d="M2 12h2"></path>
-					<path d="M20 12h2"></path>
-					<path d="m6.34 17.66-1.41 1.41"></path>
-					<path d="m19.07 4.93-1.41 1.41"></path>
-				</svg>
-			</button>
+					<!-- Moon -->
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="size-4"
+						x-bind:class="theme === 'light' ? 'hidden' : 'block'"
+					>
+						<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+					</svg>
+
+					<!-- Sun -->
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="size-4"
+						x-bind:class="theme === 'light' ? 'block' : 'hidden'"
+					>
+						<circle cx="12" cy="12" r="4"></circle>
+						<path d="M12 2v2"></path>
+						<path d="M12 20v2"></path>
+						<path d="m4.93 4.93 1.41 1.41"></path>
+						<path d="m17.66 17.66 1.41 1.41"></path>
+						<path d="M2 12h2"></path>
+						<path d="M20 12h2"></path>
+						<path d="m6.34 17.66-1.41 1.41"></path>
+						<path d="m19.07 4.93-1.41 1.41"></path>
+					</svg>
+				</button>
+			</div>
 		</div>
 
 		<main class="sm:columns-2 columns-1 xl:columns-3 lg:gap-x-8 pb-20">
@@ -141,8 +168,6 @@ const attributes = [
 											checked = checked.includes($el.value)
 												? checked.filter((name) => name !== $el.value)
 												: [...checked, $el.value]
-
-											localStorage.setItem('checked', JSON.stringify(checked))
 										`}
 									/>
 
