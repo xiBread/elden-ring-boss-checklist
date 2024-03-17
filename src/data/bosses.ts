@@ -1,4 +1,4 @@
-type BossLocation =
+type BossRegion =
 	| "Limgrave"
 	| "Weeping Peninsula"
 	| "Liurnia of the Lakes"
@@ -20,226 +20,242 @@ type BossLocation =
 	| "Crumbling Farum Azula"
 	| "Leyndell, Ashen Capital";
 
-export interface Boss {
+export interface BossMetadata {
 	name: string;
-	region: BossLocation;
 	legend?: boolean;
 	achievement?: boolean;
 }
 
-export const bosses: Boss[] = [
-	// #region Limgrave
-	{ name: "Beast of Farum Azula", region: "Limgrave" },
-	{ name: "Bell Bearing Hunter", region: "Limgrave" },
-	{ name: "Black Knife Assassin", region: "Limgrave" },
-	{ name: "Bloodhound Knight Darriwil", region: "Limgrave" },
-	{ name: "Crucible Knight", region: "Limgrave" },
-	{ name: "Deathbird", region: "Limgrave" },
-	{ name: "Demi-Human Chief", region: "Limgrave" },
-	{ name: "Erdtree Burial Watchdog", region: "Limgrave" },
-	{ name: "Flying Dragon Agheel", region: "Limgrave" },
-	{ name: "Godrick the Grafted", region: "Limgrave", legend: true, achievement: true },
-	{ name: "Grave Warden Duelist", region: "Limgrave" },
-	{ name: "Guardian Golem", region: "Limgrave" },
-	{ name: "Mad Pumpkin Head", region: "Limgrave" },
-	{ name: "Margit, the Fell Omen", region: "Limgrave", achievement: true },
-	{ name: "Night's Cavalry", region: "Limgrave" },
-	{ name: "Patches", region: "Limgrave" },
-	{ name: "Soldier of Godrick", region: "Limgrave" },
-	{ name: "Stonedigger Troll", region: "Limgrave" },
-	{ name: "Tibia Mariner", region: "Limgrave" },
-	{ name: "Tree Sentinel", region: "Limgrave" },
-	{ name: "Ulcerated Tree Spirit", region: "Limgrave" },
-	// #endregion
+export type Boss = BossMetadata | string;
 
-	// #region Weeping Peninsula
-	{ name: "Ancient Hero of Zamor", region: "Weeping Peninsula" },
-	{ name: "Cemetery Shade", region: "Weeping Peninsula" },
-	{ name: "Deathbird", region: "Weeping Peninsula" },
-	{ name: "Erdtree Avatar", region: "Weeping Peninsula" },
-	{ name: "Erdtree Burial Watchdog", region: "Weeping Peninsula" },
-	{ name: "Leonine Misbegotten", region: "Weeping Peninsula", achievement: true },
-	{ name: "Miranda the Blighted Bloom", region: "Weeping Peninsula" },
-	{ name: "Night's Cavalry", region: "Weeping Peninsula" },
-	{ name: "Runebear", region: "Weeping Peninsula" },
-	{ name: "Scaly Misbegotten", region: "Weeping Peninsula" },
-	// #endregion
+export const bosses: Record<BossRegion, Boss[]> = {
+	Limgrave: [
+		"Beast of Farum Azula",
+		"Bell Bearing Hunter",
+		"Black Knife Assassin",
+		"Bloodhound Knight Darriwil",
+		"Crucible Knight",
+		"Deathbird",
+		"Demi-Human Chief",
+		"Erdtree Burial Watchdog",
+		"Flying Dragon Agheel",
+		{ name: "Godrick the Grafted", legend: true, achievement: true },
+		"Grave Warden Duelist",
+		"Guardian Golem",
+		"Mad Pumpkin Head",
+		{ name: "Margit, the Fell Omen", achievement: true },
+		"Night's Cavalry",
+		"Patches",
+		"Soldier of Godrick",
+		"Stonedigger Troll",
+		"Tibia Mariner",
+		"Tree Sentinel",
+		"Ulcerated Tree Spirit",
+	],
 
-	// #region Liurnia
-	{ name: "Adan, Thief of Fire", region: "Liurnia of the Lakes" },
-	{ name: "Onyx Lord (formerly Alabaster Lord)", region: "Liurnia of the Lakes" },
-	{ name: "Alecto, Black Knife Ringleader", region: "Liurnia of the Lakes" },
-	{ name: "Bell Bearing Hunter", region: "Liurnia of the Lakes" },
-	{ name: "Black Knife Assassin", region: "Liurnia of the Lakes" },
-	{ name: "Bloodhound Knight", region: "Liurnia of the Lakes" },
-	{ name: "Bols, Carian Knight", region: "Liurnia of the Lakes" },
-	{ name: "Cemetery Shade", region: "Liurnia of the Lakes" },
-	{ name: "Cleanrot Knight", region: "Liurnia of the Lakes" },
-	{ name: "Crystalian Spear & Crystalian Staff", region: "Liurnia of the Lakes" },
-	{ name: "Crystalian Ringblade", region: "Liurnia of the Lakes" },
-	{ name: "Deathbird", region: "Liurnia of the Lakes" },
-	{ name: "Death Rite Bird", region: "Liurnia of the Lakes" },
-	{ name: "Erdtree Avatar (Northeast)", region: "Liurnia of the Lakes" },
-	{ name: "Erdtree Avatar (Southwest)", region: "Liurnia of the Lakes" },
-	{ name: "Erdtree Burial Watchdog", region: "Liurnia of the Lakes" },
-	{ name: "Glintstone Dragon Adula", region: "Liurnia of the Lakes" },
-	{ name: "Glintstone Dragon Smarag", region: "Liurnia of the Lakes" },
-	{ name: "Grafted Scion (Four Belfries)", region: "Liurnia of the Lakes" },
-	{ name: "Magma Wyrm Makar", region: "Liurnia of the Lakes", achievement: true },
-	{ name: "Night's Cavalry (North)", region: "Liurnia of the Lakes" },
-	{ name: "Night's Cavalry (South)", region: "Liurnia of the Lakes" },
-	{ name: "Omenkiller", region: "Liurnia of the Lakes" },
-	{ name: "Red Wolf of Radagon", region: "Liurnia of the Lakes", achievement: true },
-	{ name: "Rennala, Queen of the Full Moon", region: "Liurnia of the Lakes", legend: true, achievement: true },
-	{ name: "Royal Knight Loretta", region: "Liurnia of the Lakes", achievement: true },
-	{ name: "Royal Revenant", region: "Liurnia of the Lakes" },
-	{ name: "Spirit-Caller Snail", region: "Liurnia of the Lakes" },
-	{ name: "Tibia Mariner", region: "Liurnia of the Lakes" },
-	// #endregion
+	"Weeping Peninsula": [
+		"Ancient Hero of Zamor",
+		"Cemetery Shade",
+		"Deathbird",
+		"Erdtree Avatar",
+		"Erdtree Burial Watchdog",
+		{ name: "Leonine Misbegotten", achievement: true },
+		"Miranda the Blighted Bloom",
+		"Night's Cavalry",
+		"Runebear",
+		"Scaly Misbegotten",
+	],
 
-	// #region Caelid
-	{ name: "Battlemage Hugues", region: "Caelid" },
-	{ name: "Cemetery Shade", region: "Caelid" },
-	{ name: "Cleanrot Knight", region: "Caelid" },
-	{ name: "Commander O'Neil", region: "Caelid" },
-	{ name: "Crucible Knight / Misbegotten Warrior", region: "Caelid" },
-	{ name: "Death Rite Bird", region: "Caelid" },
-	{ name: "Decaying Ekzykes", region: "Caelid" },
-	{ name: "Erdtree Avatar", region: "Caelid" },
-	{ name: "Erdtree Burial Watchdog", region: "Caelid" },
-	{ name: "Fallingstar Beast", region: "Caelid" },
-	{ name: "Frenzied Duelist", region: "Caelid" },
-	{ name: "Mad Pumpkin Heads", region: "Caelid" },
-	{ name: "Magma Wyrm", region: "Caelid" },
-	{ name: "Night's Cavalry", region: "Caelid" },
-	{ name: "Nox Swordstress & Nox Priest", region: "Caelid" },
-	{ name: "Putrid Crystallian Trio", region: "Caelid" },
-	{ name: "Starscourge Radahn", region: "Caelid", legend: true, achievement: true },
-	// #endregion
+	"Liurnia of the Lakes": [
+		"Adan, Thief of Fire",
+		"Onyx Lord (formerly Alabaster Lord)",
+		"Alecto, Black Knife Ringleader",
+		"Bell Bearing Hunter",
+		"Black Knife Assassin",
+		"Bloodhound Knight",
+		"Bols, Carian Knight",
+		"Cemetery Shade",
+		"Cleanrot Knight",
+		"Crystalian Spear & Crystalian Staff",
+		"Crystalian Ringblade",
+		"Deathbird",
+		"Death Rite Bird",
+		"Erdtree Avatar (Northeast)",
+		"Erdtree Avatar (Southwest)",
+		"Erdtree Burial Watchdog",
+		"Glintstone Dragon Adula",
+		"Glintstone Dragon Smarag",
+		"Grafted Scion (Four Belfries)",
+		{ name: "Magma Wyrm Makar", achievement: true },
+		"Night's Cavalry (North)",
+		"Night's Cavalry (South)",
+		"Omenkiller",
+		{ name: "Red Wolf of Radagon", achievement: true },
+		{ name: "Rennala, Queen of the Full Moon", legend: true, achievement: true },
+		{ name: "Royal Knight Loretta", achievement: true },
+		"Royal Revenant",
+		"Spirit-Caller Snail",
+		"Tibia Mariner",
+	],
 
-	// #region Dragonbarrow
-	{ name: "Beast of Farum Azula", region: "Dragonbarrow" },
-	{ name: "Bell Bearing Hunter", region: "Dragonbarrow" },
-	{ name: "Black Blade Kindred (Bestial Sanctum)", region: "Dragonbarrow" },
-	{ name: "Flying Dragon Greyll", region: "Dragonbarrow" },
-	{ name: "Godskin Apostle", region: "Dragonbarrow" },
-	{ name: "Night's Cavalry", region: "Dragonbarrow" },
-	{ name: "Putrid Avatar", region: "Dragonbarrow" },
-	{ name: "Putrid Tree Spirit", region: "Dragonbarrow" },
-	// #endregion
+	Caelid: [
+		"Battlemage Hugues",
+		"Cemetery Shade",
+		"Cleanrot Knight",
+		"Commander O'Neil",
+		"Crucible Knight / Misbegotten Warrior",
+		"Death Rite Bird",
+		"Decaying Ekzykes",
+		"Erdtree Avatar",
+		"Erdtree Burial Watchdog",
+		"Fallingstar Beast",
+		"Frenzied Duelist",
+		"Mad Pumpkin Heads",
+		"Magma Wyrm",
+		"Night's Cavalry",
+		"Nox Swordstress & Nox Priest",
+		"Putrid Crystallian Trio",
+		{ name: "Starscourge Radahn", legend: true, achievement: true },
+	],
 
-	// Siofra
-	{ name: "Ancestor Spirit", region: "Siofra River", achievement: true },
-	{ name: "Dragonkin Soldier", region: "Siofra River" },
+	Dragonbarrow: [
+		"Beast of Farum Azula",
+		"Bell Bearing Hunter",
+		"Black Blade Kindred (Bestial Sanctum)",
+		"Flying Dragon Greyll",
+		"Godskin Apostle",
+		"Night's Cavalry",
+		"Putrid Avatar",
+		"Putrid Tree Spirit",
+	],
 
-	// Ainsel
-	{ name: "Dragonkin Soldier of Nokstella", region: "Ainsel River", achievement: true },
+	// prettier-ignore
+	"Siofra River": [
+		{ name: "Ancestor Spirit", achievement: true },
+		"Dragonkin Soldier",
+	],
 
-	// Nokron
-	{ name: "Mimic Tear", region: "Nokron, Eternal City", achievement: true },
-	{ name: "Regal Ancestor Spirit", region: "Nokron, Eternal City", achievement: true },
-	{ name: "Valiant Gargoyles", region: "Nokron, Eternal City", achievement: true },
+	// prettier-ignore
+	"Ainsel River": [
+		{ name: "Dragonkin Soldier of Nokstella", achievement: true },
+	],
 
-	// Deeproot
-	{ name: "Crucible Knight Siluria", region: "Deeproot Depths" },
-	{ name: "Fia's Champions", region: "Deeproot Depths" },
-	{ name: "Lichdragon Fortissax", region: "Deeproot Depths", achievement: true },
+	"Nokron, Eternal City": [
+		{ name: "Mimic Tear", achievement: true },
+		{ name: "Regal Ancestor Spirit", achievement: true },
+		{ name: "Valiant Gargoyles", achievement: true },
+	],
 
-	// Lake of Rot
-	{ name: "Astel, Naturalborn of the Void", region: "Deeproot Depths", achievement: true },
-	{ name: "Dragonkin Soldier", region: "Deeproot Depths" },
+	"Deeproot Depths": [
+		{ name: "Crucible Knight Siluria" },
+		{ name: "Fia's Champions" },
+		{ name: "Lichdragon Fortissax", achievement: true },
+	],
 
-	// #region Altus
-	{ name: "Ancient Dragon Lansseax", region: "Altus Plateu" },
-	{ name: "Ancient Hero of Zamor", region: "Altus Plateu" },
-	{ name: "Black Knife Assassin (Sage's Cave)", region: "Altus Plateu" },
-	{ name: "Black Knife Assassin (Sainted Hero's Grave)", region: "Altus Plateu" },
-	{ name: "Crystalian Spear & Crystalian Ringblade", region: "Altus Plateu" },
-	{ name: "Demi-Human Queen Gilika", region: "Altus Plateu" },
-	{ name: "Elemer of the Briar", region: "Altus Plateu", achievement: true },
-	{ name: "Fallingstar Beast", region: "Altus Plateu" },
-	{ name: "Godefroy The Grafted", region: "Altus Plateu" },
-	{ name: "Godskin Apostle", region: "Altus Plateu" },
-	{ name: "Necromancer Garris", region: "Altus Plateu" },
-	{ name: "Night's Cavalry", region: "Altus Plateu" },
-	{ name: "Omenkiller / Miranda", region: "Altus Plateu" },
-	{ name: "Perfumer Tricia / Misbegotten Warrior", region: "Altus Plateu" },
-	{ name: "Sanguine Noble", region: "Altus Plateu" },
-	{ name: "Stonedigger Troll", region: "Altus Plateu" },
-	{ name: "Tree Sentinel Duo", region: "Altus Plateu" },
-	{ name: "Wormface", region: "Altus Plateu" },
-	// #endregion
+	// prettier-ignore
+	"Lake of Rot": [
+		{ name: "Astel, Naturalborn of the Void", achievement: true },
+		"Dragonkin Soldier",
+	],
 
-	// #region Mt. Gelmir
-	{ name: "Abductor Virgins", region: "Mt. Gelmir" },
-	{ name: "Demi-Human Queen Margot", region: "Mt. Gelmir" },
-	{ name: "Demi-Human Queen Maggie", region: "Mt. Gelmir" },
-	{ name: "Erdtree Burial Watchdog", region: "Mt. Gelmir" },
-	{ name: "Full-Grown Fallingstar Beast", region: "Mt. Gelmir" },
-	{ name: "God-Devouring Serpent / Rykard", region: "Mt. Gelmir", legend: true, achievement: true },
-	{ name: "Godskin Noble", region: "Mt. Gelmir", achievement: true },
-	{ name: "Kindred of Rot", region: "Mt. Gelmir" },
-	{ name: "Magma Wyrm", region: "Mt. Gelmir" },
-	{ name: "Red Wolf of the Champion", region: "Mt. Gelmir" },
-	{ name: "Tibia Mariner", region: "Mt. Gelmir" },
-	{ name: "Ulcerated Tree Spirit", region: "Mt. Gelmir" },
-	// #endregion
+	"Altus Plateu": [
+		"Ancient Dragon Lansseax",
+		"Ancient Hero of Zamor",
+		"Black Knife Assassin (Sage's Cave)",
+		"Black Knife Assassin (Sainted Hero's Grave)",
+		"Crystalian Spear & Crystalian Ringblade",
+		"Demi-Human Queen Gilika",
+		{ name: "Elemer of the Briar", achievement: true },
+		"Fallingstar Beast",
+		"Godefroy The Grafted",
+		"Godskin Apostle",
+		"Necromancer Garris",
+		"Night's Cavalry",
+		"Omenkiller / Miranda",
+		"Perfumer Tricia / Misbegotten Warrior",
+		"Sanguine Noble",
+		"Stonedigger Troll",
+		"Tree Sentinel Duo",
+		"Wormface",
+	],
 
-	// #region Leyndell
-	{ name: "Bell Bearing Hunter", region: "Leyndell" },
-	{ name: "Crucible Knight Ordovis / Crucible Knight", region: "Leyndell" },
-	{ name: "Deathbird", region: "Leyndell" },
-	{ name: "Draconic Tree Sentinel", region: "Leyndell" },
-	{ name: "Esgar, Priest of Blood", region: "Leyndell" },
-	{ name: "Fell Twins", region: "Leyndell" },
-	{ name: "Godfrey, First Elden Lord (Golden Shade)", region: "Leyndell" },
-	{ name: "Grave Warden Duelist", region: "Leyndell" },
-	{ name: "Morgott, the Omen King", region: "Leyndell", achievement: true },
-	{ name: "Mohg, The Omen", region: "Leyndell", achievement: true },
-	{ name: "Onyx Lord", region: "Leyndell" },
-	// #endregion
+	"Mt. Gelmir": [
+		"Abductor Virgins",
+		"Demi-Human Queen Margot",
+		"Demi-Human Queen Maggie",
+		"Erdtree Burial Watchdog",
+		"Full-Grown Fallingstar Beast",
+		{ name: "God-Devouring Serpent / Rykard", legend: true, achievement: true },
+		{ name: "Godskin Noble", achievement: true },
+		"Kindred of Rot",
+		"Magma Wyrm",
+		"Red Wolf of the Champion",
+		"Tibia Mariner",
+		"Ulcerated Tree Spirit",
+	],
 
-	// Forbidden Lands
-	{ name: "Black Blade Kindred", region: "Forbidden Lands" },
-	{ name: "Mimic Tear", region: "Forbidden Lands" },
-	{ name: "Night's Cavalry", region: "Forbidden Lands" },
+	Leyndell: [
+		"Bell Bearing Hunter",
+		"Crucible Knight Ordovis / Crucible Knight",
+		"Deathbird",
+		"Draconic Tree Sentinel",
+		"Esgar, Priest of Blood",
+		"Fell Twins",
+		"Godfrey, First Elden Lord (Golden Shade)",
+		"Grave Warden Duelist",
+		{ name: "Morgott, the Omen King", achievement: true },
+		{ name: "Mohg, The Omen", achievement: true },
+		"Onyx Lord",
+	],
 
-	// #region Mountaintops
-	{ name: "Ancient Hero of Zamor", region: "Mountaintops of the Giants" },
-	{ name: "Borealis the Freezing Fog", region: "Mountaintops of the Giants" },
-	{ name: "Commander Niall", region: "Mountaintops of the Giants", achievement: true },
-	{ name: "Death Rite Bird", region: "Mountaintops of the Giants" },
-	{ name: "Erdtree Avatar", region: "Mountaintops of the Giants" },
-	{ name: "Fire Giant", region: "Mountaintops of the Giants", achievement: true },
-	{ name: "Godskins (Summoner Snail)", region: "Mountaintops of the Giants" },
-	{ name: "Ulcerated Tree Spirit", region: "Mountaintops of the Giants" },
-	{ name: "Vyke, Knight of the Roundtable", region: "Mountaintops of the Giants" },
-	// #endregion
+	// prettier-ignore
+	"Forbidden Lands": [
+		"Black Blade Kindred",
+		"Mimic Tear",
+		"Night's Cavalry",
+	],
 
-	// #region Snowfield
-	{ name: "Astel, Stars of Darkness", region: "Consecrated Snowfield" },
-	{ name: "Death Rite Bird", region: "Consecrated Snowfield" },
-	{ name: "Great Wrym Theodorix", region: "Consecrated Snowfield" },
-	{ name: "Misbegotten Crusader", region: "Consecrated Snowfield" },
-	{ name: "Night's Cavalry (Duo)", region: "Consecrated Snowfield" },
-	{ name: "Putrid Avatar", region: "Consecrated Snowfield" },
-	{ name: "Putrid Grave Warden Duelist", region: "Consecrated Snowfield" },
-	// #endregion
+	"Mountaintops of the Giants": [
+		"Ancient Hero of Zamor",
+		"Borealis the Freezing Fog",
+		{ name: "Commander Niall", achievement: true },
+		"Death Rite Bird",
+		"Erdtree Avatar",
+		{ name: "Fire Giant", achievement: true },
+		"Godskins (Summoner Snail)",
+		"Ulcerated Tree Spirit",
+		"Vyke, Knight of the Roundtable",
+	],
 
-	// Haligtree
-	{ name: "Loretta, Knight of the Haligtree", region: "The Haligtree", achievement: true },
-	{ name: "Malenia, Blade of Miquella", region: "The Haligtree", legend: true, achievement: true },
+	"Consecrated Snowfield": [
+		"Astel, Stars of Darkness",
+		"Death Rite Bird",
+		"Great Wrym Theodorix",
+		"Misbegotten Crusader",
+		"Night's Cavalry (Duo)",
+		"Putrid Avatar",
+		"Putrid Grave Warden Duelist",
+	],
 
-	// Mohgwyn
-	{ name: "Mohg, Lord of Blood", region: "Mohgwyn Palace", legend: true, achievement: true },
+	"The Haligtree": [
+		{ name: "Loretta, Knight of the Haligtree", achievement: true },
+		{ name: "Malenia, Blade of Miquella", legend: true, achievement: true },
+	],
 
-	// Farum Azula
-	{ name: "Godskin Duo", region: "Crumbling Farum Azula", achievement: true },
-	{ name: "Beast Clergyman / Maliketh, the Black Blade", region: "Crumbling Farum Azula", achievement: true },
-	{ name: "Dragonlord Placidusax", region: "Crumbling Farum Azula", achievement: true },
+	// prettier-ignore
+	"Mohgwyn Palace": [
+		{ name: "Mohg, Lord of Blood", legend: true, achievement: true },
+	],
 
-	// Leyndell Capital
-	{ name: "Godfrey, First Elden Lord / Hoarah Loux, Warrior", region: "Leyndell, Ashen Capital", achievement: true },
-	{ name: "Radagon of the Golden Order / Elden Beast", region: "Leyndell, Ashen Capital" },
-	{ name: "Sir Gideon Ofnir, the All-Knowing ", region: "Leyndell, Ashen Capital" },
-];
+	"Crumbling Farum Azula": [
+		{ name: "Godskin Duo", achievement: true },
+		{ name: "Beast Clergyman / Maliketh, the Black Blade", achievement: true },
+		{ name: "Dragonlord Placidusax", achievement: true },
+	],
+
+	"Leyndell, Ashen Capital": [
+		{ name: "Godfrey, First Elden Lord / Hoarah Loux, Warrior", achievement: true },
+		"Radagon of the Golden Order / Elden Beast",
+		"Sir Gideon Ofnir, the All-Knowing ",
+	],
+};

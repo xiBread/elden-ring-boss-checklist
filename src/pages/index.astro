@@ -2,11 +2,6 @@
 import "../app.css";
 import { bosses, type Boss } from "../data/bosses";
 
-const groups = bosses.reduce<Record<string, Boss[]>>((all, boss) => {
-	(all[boss.region] ??= []).push(boss);
-	return all;
-}, {});
-
 const attributes = [
 	{
 		key: "legend",
@@ -154,45 +149,50 @@ const attributes = [
 
 		<main class="sm:columns-2 columns-1 xl:columns-3 lg:gap-x-8 pb-20">
 			{
-				Object.entries(groups).map(([location, bosses]) => (
+				Object.entries(bosses).map(([region, bosses]) => (
 					<ul class="space-y-2 break-inside-avoid-column">
 						<li class="w-full flex border-b rounded-b-none pb-0.5">
-							<h2 class="text-2xl font-bold">{location}</h2>
+							<h2 class="text-2xl font-bold">{region}</h2>
 						</li>
 
 						<ul class="overflow-hidden space-y-1.5">
-							{bosses.map((boss) => (
-								<li class="flex gap-x-2 items-center last:pb-6">
-									<input
-										type="checkbox"
-										class="size-4 appearance-none hover:cursor-pointer bg-none rounded-sm border border-primary focus-visible:outline-none focus-visible:border-blue-400 focus-visible:border-2 checked:bg-primary checked:text-primary-foreground"
-										value={`${boss.region}_${boss.name}`}
-										x-bind:checked="checked.includes($el.value)"
-										x-on:change={`
+							{bosses.map((boss) => {
+								const bossName = typeof boss === "string" ? boss : boss.name;
+
+								return (
+									<li class="flex gap-x-2 items-center last:pb-6">
+										<input
+											type="checkbox"
+											class="size-4 appearance-none hover:cursor-pointer bg-none rounded-sm border border-primary focus-visible:outline-none focus-visible:border-blue-400 focus-visible:border-2 checked:bg-primary checked:text-primary-foreground"
+											value={`${region}_${bossName}`}
+											x-bind:checked="checked.includes($el.value)"
+											x-on:change={`
 											checked = checked.includes($el.value)
 												? checked.filter((name) => name !== $el.value)
 												: [...checked, $el.value]
 										`}
-									/>
+										/>
 
-									<div class="flex items-center gap-x-2 ml-1">
-										<span class="text-sm">{boss.name}</span>
+										<div class="flex items-center gap-x-2 ml-1">
+											<span class="text-sm">{bossName}</span>
 
-										{attributes.map(
-											(attr) =>
-												boss[attr.key] && (
-													<span
-														title={attr.tooltip}
-														class:list={[
-															"block rounded-full size-2.5",
-															attr.color,
-														]}
-													/>
-												),
-										)}
-									</div>
-								</li>
-							))}
+											{typeof boss === "object" &&
+												attributes.map(
+													(attr) =>
+														boss[attr.key] && (
+															<span
+																title={attr.tooltip}
+																class:list={[
+																	"block rounded-full size-2.5",
+																	attr.color,
+																]}
+															/>
+														)
+												)}
+										</div>
+									</li>
+								);
+							})}
 						</ul>
 					</ul>
 				))
